@@ -1,0 +1,87 @@
+# my zshrc with oh-my-zsh
+# Oh My Zsh setup and config
+# Path Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+# Set name of the theme to load --- themes in https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="agnoster"
+
+zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+zstyle ':omz:update' frequency 14   # update frequency 14 days
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+# History
+HISTSIZE=1000
+HISTFILE="/${XDG_DATA_HOME:-${HOME}}/.zsh_history"
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+HIST_STAMPS="dd.mm.yyyy"                        # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_dups
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_find_no_dups
+
+
+# User configuration
+
+# Language 
+#export LANG=en_US.UTF-8
+export LANG=pt_BR.UTF-8
+
+source <(fzf --zsh)
+
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+   export EDITOR='nano'
+ else
+   export EDITOR='nvim'
+fi
+
+# WSL things
+if [ -d "/mnt/wsl" ]; then 
+    export DISPLAY=$(ip route list default | awk '{print $3}'):0
+    export LIBGl_ALWAYS_INDIRECT=1
+fi
+
+# Custom variables
+# User variables
+export USER="jay"                   # my username
+
+export HOME="/home/$USER"           # home directory
+export HOME_CONFIG="$HOME/.config"  # .config directory
+export HOME_LOCAL="$HOME/.local"    # .local directory
+export HOME_BIN="$HOME/.bin"        # .bin directory(i use it to store binaries I made)
+# Other variables
+export NVIM_CONFIG="$HOME_CONFIG/nvim"                             # neovim config directory
+export NVIM_MASON_BIN="$HOME_LOCAL/share/nvim/mason/bin"           # neovim mason binaries
+export CARGO_BIN="$HOME/.cargo/bin"                                # cargo binaries
+export CARGO_ENV="$HOME/.cargo/env"                                # cargo envirioment
+# PATH
+export PATH="$PATH:$HOME_BIN:$NVIM_MASON_BIN:$CARGO_BIN:$CARGO_ENV"
+# Functions
+unalias md
+md(){
+    mkdir -p $1
+    cd $1
+}
+# Aliases
+alias conf-zsh="$EDITOR $HOME/.zshrc" # easy configure zsh command
+alias zshrc="source $HOME/.zshrc"     # easy reload zsh config
+
+alias grep='grep --color=auto'
+alias mkdir="mkdir -p"
+alias ls="ls --color=auto"
+alias la="ls -a --color=auto"
+alias ll="ls -al --color=auto"
+
+alias nv="nvim"
