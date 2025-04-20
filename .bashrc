@@ -8,7 +8,9 @@ PS1='[\[\e[4;32m\]\t\[\e[0m\] \[\e[4;31m\]\u@\h\[\e[0m\] \W] \[\e[33m\]$?\[\e[0m
 PS2='>'
 # ---------------------------------------------------------
 # fzf integration
-source <(fzf --bash)
+# if [[ $(which fzf) == 0 ]]; then
+#     source <(fzf --bash)
+# fi
 
 if [[ -n $SSH_CONNECTION ]]; then
    export EDITOR='nano'
@@ -17,7 +19,6 @@ if [[ -n $SSH_CONNECTION ]]; then
 fi
 # Custom variables
 # User variables
-export USER="jay"                   # my username
 
 export HOME="/home/$USER"           # home directory
 export HOME_CONFIG="$HOME/.config"  # .config directory
@@ -29,7 +30,9 @@ export NVIM_MASON_BIN="$HOME_LOCAL/share/nvim/mason/bin"           # neovim maso
 export CARGO_BIN="$HOME/.cargo/bin"                                # cargo binaries
 export CARGO_ENV="$HOME/.cargo/env"                                # cargo envirioment
 # PATH
-export PATH="$PATH:$HOME_BIN:$NVIM_MASON_BIN:$CARGO_BIN:$CARGO_ENV:$HOME_LOCAL/bin"
+export PATH="$PATH:$HOME_BIN:$NVIM_MASON_BIN:$CARGO_BIN:$CARGO_ENV"
+export PATH="$PATH:$HOME_LOCAL/bin:$HOME_BIN/go/bin:$HOME_BIN/lua-5.4.7/src:$HOME_BIN/node-v22.14.0/bin"
+export PATH="$PATH:$HOME/Code/3rd/arduino-cli"
 #Functions
 
 function md(){
@@ -48,3 +51,4 @@ alias ls="ls --color=auto"
 alias la="ls -a --color=auto"
 alias ll="ls -al --color=auto"
 alias nv="nvim"
+. "$HOME/.cargo/env"
