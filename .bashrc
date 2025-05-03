@@ -4,7 +4,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 # Prompt
-PS1='[\[\e[4;32m\]\t\[\e[0m\] \[\e[4;31m\]\u@\h\[\e[0m\] \W] \[\e[33m\]$?\[\e[0m\] \$ '
+PS1='[\[\e[4;32m\]\t\[\e[0m\] \[\e[4;31m\]\u\e[0m\]@\e[33m\]\h\[\e[0m\] \W] \[\e[33m\]$?\[\e[0m\] \$ '
 PS2='>'
 # ---------------------------------------------------------
 # fzf integration
